@@ -1,0 +1,39 @@
+[gd_scene load_steps=8 format=3 uid="uid://b8d1cp3ggmc2o"]
+
+[ext_resource type="Script" path="res://scenes/main/main.gd" id="1_1osbp"]
+[ext_resource type="PackedScene" uid="uid://dsplwxhk3gp8g" path="res://scenes/player/player.tscn" id="1_3iyft"]
+[ext_resource type="PackedScene" uid="uid://bqg1x7oicagsl" path="res://scenes/obstacle/obstacle.tscn" id="2_pl17x"]
+[ext_resource type="PackedScene" uid="uid://dp3v5dbbnmmeu" path="res://scenes/hud/hud.tscn" id="4_up7f6"]
+[ext_resource type="PackedScene" uid="uid://2j0atf3wec6n" path="res://scenes/background/background.tscn" id="5_i1v8f"]
+[ext_resource type="AudioStream" uid="uid://m3fqp4e66cbu" path="res://assets/audio/piensa_en_mi.ogg" id="6_s7yk8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dbh0j"]
+size = Vector2(1296, 64)
+
+[node name="Main" type="Node"]
+script = ExtResource("1_1osbp")
+obstacles = ExtResource("2_pl17x")
+
+[node name="HUD" parent="." instance=ExtResource("4_up7f6")]
+
+[node name="Player" parent="." instance=ExtResource("1_3iyft")]
+
+[node name="Ground" type="StaticBody2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+position = Vector2(640, 688)
+shape = SubResource("RectangleShape2D_dbh0j")
+
+[node name="ObstacleTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="Background" parent="." instance=ExtResource("5_i1v8f")]
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_s7yk8")
+volume_db = -25.297
+
+[connection signal="start" from="HUD" to="." method="_on_hud_start"]
+[connection signal="lose" from="Player" to="." method="_on_player_lose"]
+[connection signal="timeout" from="ObstacleTimer" to="." method="_on_obstacle_timer_timeout"]

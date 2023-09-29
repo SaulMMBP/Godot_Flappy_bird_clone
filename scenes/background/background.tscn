@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://2j0atf3wec6n"]
+
+[ext_resource type="Texture2D" uid="uid://0uffytt0qnbk" path="res://assets/sprites/ground/spikes.png" id="1_p8ryq"]
+[ext_resource type="Script" path="res://scenes/background/background.gd" id="1_uv5tq"]
+[ext_resource type="Texture2D" uid="uid://768yi4uo8edh" path="res://assets/sprites/background/tilesetOpenGameBackground.png" id="2_35fom"]
+
+[node name="Background" type="ParallaxBackground"]
+script = ExtResource("1_uv5tq")
+
+[node name="Sky" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.5, 0.5)
+motion_mirroring = Vector2(1280, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Sky"]
+position = Vector2(0, -216.265)
+scale = Vector2(4, 4)
+texture = ExtResource("2_35fom")
+centered = false
+
+[node name="Spikes" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(1270.58, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Spikes"]
+texture = ExtResource("1_p8ryq")
+centered = false
